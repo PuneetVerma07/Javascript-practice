@@ -1,24 +1,19 @@
-let email = document.querySelector("#email")
-let password = document.querySelector("#password")
-let form = document.querySelector("form")
+let count = 0;
+let btn = document.querySelector("button")
+let progress = document.querySelector(".progress")
+ 
+let delay = Math.floor(Math.random * 90000) + 1000;
 
-form.addEventListener("submit", (e)=>{
-    e.preventDefault();
-
-    document.querySelector("#emailError").textContent = ""
-    document.querySelector("#passwordError").textContent = ""
-
-const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?#&])[A-Za-z\d@$!%*?#&]{8,}$/;
-
-let emailAns = emailRegex.test(email.value)
-let passwordAns = passwordRegex.test(password.value)
-
-if(!emailAns){
-    document.querySelector("#emailError").textContent = "Enter valid email"
-}
-
-if(!passwordAns){
-    document.querySelector("#passwordError").textContent = "Invalid password"
-}
+btn.addEventListener("click", ()=>{
+let intvr = setInterval(()=>{
+    if(count <= 99){
+        count++;
+        console.log(count)
+        progress.style.width = `${count}%`
+    }
+    else{
+        btn.textContent = "Downloaded"
+        clearInterval(intvr)
+    }
+}, delay)
 })
