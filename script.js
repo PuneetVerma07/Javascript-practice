@@ -1,19 +1,39 @@
-let count = 0;
-let btn = document.querySelector("button")
-let progress = document.querySelector(".progress")
- 
-let delay = Math.floor(Math.random * 90000) + 1000;
+function setDarkOrLight(){
+    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
+    document.body.classList.add("dark")
+    document.body.classList.remove("light")
+}else{
+    document.body.classList.add("light")
+    document.body.classList.remove("dark")
+}
+}
 
+
+if(localStorage.getItem("theme")){
+    document.body.classList.add(localStorage.getItem("theme"))
+}else{
+setDarkOrLight();
+}
+
+let btn = document.querySelector("button")
 btn.addEventListener("click", ()=>{
-let intvr = setInterval(()=>{
-    if(count <= 99){
-        count++;
-        console.log(count)
-        progress.style.width = `${count}%`
+    if(document.body.classList.contains("dark")){
+        document.body.classList.add("light")
+        document.body.classList.remove("dark")
+
+        localStorage.setItem("theme", "light")
+    }else{
+        document.body.classList.add("dark")
+        document.body.classList.remove("light")
+
+        localStorage.setItem("theme", "dark")
     }
-    else{
-        btn.textContent = "Downloaded"
-        clearInterval(intvr)
-    }
-}, delay)
 })
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener("change", ()=>{
+    if(!localStorage.getItem("theme")){
+
+        setDarkOrLight();
+    }
+})
+
