@@ -1,39 +1,34 @@
-function setDarkOrLight(){
-    if(window.matchMedia('(prefers-color-scheme: dark)').matches){
-    document.body.classList.add("dark")
-    document.body.classList.remove("light")
-}else{
-    document.body.classList.add("light")
-    document.body.classList.remove("dark")
-}
+function applySystemTheme() {
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  document.body.classList.toggle('dark', prefersDark);
+  document.body.classList.toggle('light', !prefersDark);
 }
 
-
-if(localStorage.getItem("theme")){
-    document.body.classList.add(localStorage.getItem("theme"))
-}else{
-setDarkOrLight();
+function applyStoredTheme() {
+  const storedTheme = localStorage.getItem('theme');
+  if (storedTheme) {
+    document.body.classList.add(storedTheme);
+  } else {
+    applySystemTheme();
+  }
 }
 
-let btn = document.querySelector("button")
-btn.addEventListener("click", ()=>{
-    if(document.body.classList.contains("dark")){
-        document.body.classList.add("light")
-        document.body.classList.remove("dark")
+function toggleTheme() {
+  const isDark = document.body.classList.contains('dark');
+  document.body.classList.toggle('dark', !isDark);
+  document.body.classList.toggle('light', isDark);
+  localStorage.setItem('theme', isDark ? 'light' : 'dark');
+}
 
-        localStorage.setItem("theme", "light")
-    }else{
-        document.body.classList.add("dark")
-        document.body.classList.remove("light")
+// Apply theme on page load
+applyStoredTheme();
 
-        localStorage.setItem("theme", "dark")
-    }
-})
+// Button click to toggle theme
+document.querySelector('button').addEventListener('click', toggleTheme);
 
-window.matchMedia('(prefers-color-scheme: dark)').addEventListener("change", ()=>{
-    if(!localStorage.getItem("theme")){
-
-        setDarkOrLight();
-    }
-})
-
+// Listen for system theme changes only if no manual theme is stored
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+  if (!localStorage.getItem('theme')) {
+    applySystemTheme();
+  }
+});
