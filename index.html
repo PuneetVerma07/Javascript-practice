@@ -3,28 +3,70 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>call-priority</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div class="flex flex-col gap-10 items-center">
-      <input class="inp px-5 py-3 rounded outline-none bg-[#111] text-[#888]" type="text" placeholder="Search..." />
-      <div class="cards flex gap-4">
-        <!-- <div class="card">
-          <img
-            src="https://images.unsplash.com/photo-1742201587774-f44fe79556f9?q=80&w=1964&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-            alt=""
-            class="bg-img"
-          />
+    <div class="form-container">
+      <h2>New Call</h2>
+      <form action="">
+        <label for="imgUrl">Image Url</label>
+        <input
+          type="text"
+          required
+          placeholder="https://example.com/photo.jpg"
+        />
 
-          <div class="blurred-layer"></div>
+        <label for="fullName">Full Name</label>
+        <input type="text" placeholder="Enter your full name" required />
 
-          <div class="content">
-            <h3>User 12345</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-          </div>
-        </div> -->
+        <label for="homeTown">Home Town</label>
+        <input type="text" placeholder="Enter your home town" required />
+
+        <label for="purpose">Purpose</label>
+        <input type="text" placeholder="e.g.,Quick appointment note" required />
+
+        <label for="category">Category</label>
+        <label class="tagCheckbox">
+          <input type="radio" name="category" value="emergency" required />
+          <span>Emergency</span>
+        </label>
+
+        <label class="tagCheckbox">
+          <input type="radio" name="category" value="important" required />
+          <span>Important</span>
+        </label>
+        <label class="tagCheckbox">
+          <input type="radio" name="category" value="urgent" required />
+          <span>Urgent</span>
+        </label>
+        <label class="tagCheckbox">
+          <input type="radio" name="category" value="no-rush" required />
+          <span>No-rush</span>
+        </label>
+        <button class="submit-btn">Create Note</button>
+      </form>
+      <button class="closeForm">Close</button>
+    </div>
+    <div class="note-container">
+      <div class="left-icons">
+        <button id="add-note"><i class="ri-add-line"></i></button>
+        <button id="upBtn"><i class="ri-arrow-up-line"></i></button>
+        <button id="downBtn"><i class="ri-arrow-down-line"></i></button>
+      </div>
+      <div class="stack">
+
+      </div>
+
+      <div class="right-colors">
+        <span class="dot black"></span>
+        <span class="dot purple"></span>
+        <span class="dot orange"></span>
+        <span class="dot teal"></span>
       </div>
     </div>
     <script src="script.js"></script>
