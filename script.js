@@ -36,60 +36,62 @@ const users = [
   }
 ];
 
+const cardsContainer = document.querySelector(".cards");
+const inp = document.querySelector(".inp");
 
+function showImage(arr) {
+  cardsContainer.innerHTML = ""; // clear previous cards
 
-function showImage(arr){
+  if (arr.length === 0) {
+    const msg = document.createElement("p");
+    msg.textContent = "❌ User not found";
+    msg.style.color = "red";
+    msg.style.fontWeight = "bold";
+    msg.style.textAlign = "center";
+    cardsContainer.appendChild(msg);
+    return;
+  }
+
   arr.forEach(user => {
-    
-    // create a outer class div
-    let card = document.createElement("div")
-    card.classList.add("card")
+    const card = document.createElement("div");
+    card.classList.add("card");
 
-    // create the img element
-    let img = document.createElement("img")
-    img.classList.add("bg-img")
+    const img = document.createElement("img");
+    img.classList.add("bg-img");
     img.src = user.pic;
-    
-    // create blurred layer div
-    let blurredLayer = document.createElement("div")
+
+    const blurredLayer = document.createElement("div");
+    blurredLayer.classList.add("blurred-layer");
     blurredLayer.style.backgroundImage = `url(${user.pic})`;
-    blurredLayer.classList.add("blurred-layer")
 
-    // create content div
-    let content = document.createElement("div")
-    content.classList.add("content")
+    const content = document.createElement("div");
+    content.classList.add("content");
 
-    // create h3
-    let heading = document.createElement("h3")
+    const heading = document.createElement("h3");
     heading.textContent = user.name;
 
-    // Create paragraph
-    let para = document.createElement("p")
+    const para = document.createElement("p");
     para.textContent = user.bio;
 
-    // append h3 and p to content
-    content.appendChild(heading)
-    content.appendChild(para)
+    content.appendChild(heading);
+    content.appendChild(para);
 
-    // append all children to card
-    card.appendChild(img)
-    card.appendChild(blurredLayer)
-    card.appendChild(content)
+    card.appendChild(img);
+    card.appendChild(blurredLayer);
+    card.appendChild(content);
 
-    // append the card to the body or a container
-    document.querySelector(".cards").appendChild(card)
+    cardsContainer.appendChild(card);
   });
 }
 
-showImage(users)
+// Initial load
+showImage(users);
 
-let inp = document.querySelector(".inp")
-
-inp.addEventListener("input", ()=>{
-  let newUsers = users.filter((user)=>{
-    return user.name.startsWith(inp.value)
-  })
-  
-  document.querySelector(".cards").innerHTML = ""
-  showImage(newUsers)
-})
+// Search input listener
+inp.addEventListener("input", () => {
+  const search = inp.value.trim().toLowerCase();
+  const filtered = users.filter(user =>
+    user.name.toLowerCase().startsWith(search)
+  );
+  showImage(filtered);
+});
